@@ -1,0 +1,419 @@
+﻿@model CarViewModel
+@{
+    ViewData["Title"] = "CarDetail";
+    var reservation = ViewBag.Reservation;
+}
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="css/style.css" rel="stylesheet">
+
+<!-- Detail Start -->
+<div class="container-fluid pt-5">
+    <div class="container pt-5 pb-3">
+        <h1 class="display-4 text-uppercase mb-5">@Model.Model.Brand.Name @Model.Model.Name</h1>
+        <div class="row align-items-center pb-2">
+            <div class="col-lg-5 mb-4">
+                <img class="img-fluid" src="@Model.PictureUrl" alt="">
+            </div>
+            <div class="col-lg-5 mb-4">
+                <h4 class="mb-2">@string.Format("{0:C2}", Model.Price)</h4>
+                <div class="d-flex mb-3">
+                    <h6 class="mr-2">Değerlendirmeler:</h6>
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star-half-alt text-primary mr-1"></small>
+                        <small>(250)</small>
+                    </div>
+                </div>
+                <p>@Model.Model.Description</p>
+                <div class="d-flex pt-1">
+                    <h6>Paylaş:</h6>
+                    <div class="d-inline-flex">
+                        <a class="px-2" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="px-2" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="px-2" href=""><i class="fab fa-linkedin-in"></i></a>
+                        <a class="px-2" href=""><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <script>
+                window.onscroll = function () {
+                    const fixedDiv = document.getElementById('fixedDiv');
+                    const stopPoint = 150; // Div'in sabit kalmasını istediğiniz nokta (piksel)
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const leftPoint = 0;
+                    const left = 1199;
+                    const top = 200;
+
+                    if (scrollTop >= stopPoint) {
+                        fixedDiv.style.position = 'relative';
+                        fixedDiv.style.top = stopPoint + 'px';
+                        fixedDiv.style.left = leftPoint + 'px';
+
+                    } else {
+                        fixedDiv.style.position = 'fixed';
+                        fixedDiv.style.top = top + 'px';
+                        fixedDiv.style.left = left + 'px';
+                    }
+                };
+            </script>
+            <div class="col-lg-2 mb-4">
+                <div class="payment-info bg-secondary p-5 mb-5" id="fixedDiv">
+                    <h4 class="text-primary mb-4">Ödeme Bilgileri</h4>
+                    <p class="text-white"><strong>Günlük Kira Ücreti:</strong> <span class="price">@string.Format("{0:C2}", Model.Price)</span></p>
+                    <p class="text-white"><strong>Toplam Kira Süresi:</strong>@(reservation.EndDay.Day-reservation.StartDay.Day)</p>
+                    <p class="text-white"><strong>Toplam Ücret:</strong> <span class="price"> @reservation.TotalPrice</span></p>
+                    
+                    
+                    <a asp-controller="Home" asp-action="ConfirmPayment" asp-route-id="@Model.Id" asp-route-startDate="@reservation.StartDay?.ToString("yyyy-MM-dd")" asp-route-EndDate="@reservation.EndDay?.ToString("yyyy-MM-dd")" asp-route-reservation="@reservation class="btn btn-block btn-primary py-3">Hemen Kirala</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-n3 mt-lg-0 pb-4 text-center">
+        <div class="col-md-2 col-6 mb-2">
+            <i class="fa fa-car text-primary mr-2"></i>
+            <span>@Model.Model.VehicleType.Name</span>
+        </div>
+        <div class="col-md-2 col-6 mb-2">
+            <i class="fa fa-cogs text-primary mr-2"></i>
+            <span>@Model.Model.GearBoxType</span>
+        </div>
+        <div class="col-md-2 col-6 mb-2">
+            <i class="fa-solid fa-gas-pump text-primary mr-2"></i>
+            <span>@Model.Model.FuelType</span>
+        </div>
+        <div class="col-md-2 col-6 mb-2">
+            <i class="fa fa-eye text-primary mr-2"></i>
+            <span>GPS Konumu</span>
+        </div>
+        <div class="col-md-2 col-6 mb-2">
+        </div>
+    </div>
+</div>
+    </>
+<!-- Detail End -->
+
+<style>
+
+    .containerr {
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .open-modal {
+        display: inline-block;
+        padding: 10px;
+        margin: 0 auto;
+        text-align: center;
+        background-color: ghostwhite;
+        color: #007BFF;
+        border: solid, 1px lightgray;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+    }
+
+        .open-modal:hover {
+        }
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 8px;
+        max-width: 800px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    .accordion {
+        background-color: #007BFF;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 18px;
+        border-radius: 5px;
+        margin-top: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .accordion:hover {
+            background-color: #0056b3;
+        }
+
+    .panel {
+        padding: 0 15px;
+        display: none;
+        overflow: hidden;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+    }
+
+        .panel ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .panel li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+    .accordion:after {
+        content: '\002B'; /* Unicode character for plus sign */
+        font-size: 18px;
+        color: white;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .accordion.active:after {
+        content: "\2212"; /* Unicode character for minus sign */
+    }
+</style>
+
+<div class="containerr">
+    <h1>Araç Kiralama Koşulları</h1>
+    <p>Araç kiralama süreci hakkında genel kuralları, temel bilgileri, ekstra prosedüleri ve varsa farklı ücretlendirmeleri inceleyebilirsiniz.</p>
+    <a href="#" class="open-modal" id="openModal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#007BFF" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+        </svg>&nbsp;
+        Araç Kiralama Koşulları
+    </a>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Araç Kiralama Koşulları</h2>
+
+        <button class="accordion">Yaş Sınırlamaları</button>
+        <div class="panel">
+            <ul>
+                <li>Araç kiralayabilmek için minimum yaş 21'dir ve en az 1 yıl geçerli sürücü belgesine sahip olmanız gerekmektedir.</li>
+            </ul>
+        </div>
+
+        <button class="accordion">Sürücü Belgesi</button>
+        <div class="panel">
+            <ul>
+                <li>Sürücü belgenizin geçerlilik süresi kiralama süresi boyunca yeterli olmalıdır. Uluslararası sürücü belgeleri de kabul edilmektedir.</li>
+            </ul>
+        </div>
+
+        <button class="accordion">Sigorta</button>
+        <div class="panel">
+            <ul>
+                <li>Araç kiralama sırasında temel sigorta paketleri dahil edilmiştir. Ekstra sigorta paketleri ve koruma seçenekleri mevcut olabilir.</li>
+            </ul>
+        </div>
+
+        <button class="accordion">Yakıt Politikası</button>
+        <div class="panel">
+            <ul>
+                <li>Araç teslim aldığınızda full depo ile teslim edilecektir. Araç geri teslim edilirken de full depo olarak teslim edilmelidir.</li>
+            </ul>
+        </div>
+
+        <button class="accordion">Hasar ve Kaybolma</button>
+        <div class="panel">
+            <ul>
+                <li>Kiralam süresince araçta oluşabilecek hasar ve kaybolmalardan sorumlu olabilirsiniz. Ekstra sigorta paketleri bu riskleri azaltabilir.</li>
+            </ul>
+        </div>
+
+        <button class="accordion">İptal Politikası</button>
+        <div class="panel">
+            <ul>
+                <li>Rezervasyon iptali veya değişikliği için belirli bir süre öncesinde bildirimde bulunmanız gerekmektedir. İptal politikaları şirketten şirkete değişiklik gösterebilir.</li>
+            </ul>
+        </div>
+
+        <button class="accordion">Ödeme</button>
+        <div class="panel">
+            <ul>
+                <li>Kiralama bedeli, ekstra hizmetler ve depozito ödemeleri önceden yapılmalıdır. Kredi kartı kabul edilmektedir.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get the modal
+    const modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    const btn = document.getElementById("openModal");
+
+    // Get the <span> element that closes the modal
+    const span = document.getElementsByClassName("close")[0];
+
+    // Get all the accordion buttons
+    const accordions = document.querySelectorAll('.accordion');
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Accordion functionality
+    accordions.forEach((accordion) => {
+        accordion.addEventListener('click', function () {
+            this.classList.toggle('active');
+            const panel = this.nextElementSibling;
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+            } else {
+                document.querySelectorAll('.panel').forEach(p => p.style.display = 'none');
+                panel.style.display = 'block';
+            }
+        });
+    });
+</script>
+
+<style>
+
+    /* Flex düzeni ve merkezi hizalama */
+    .main-wrapper {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    /* Sol sütun stili */
+    .left-column {
+        flex: 2;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-right: 20px; /* Sağdaki sütunla arasındaki boşluk */
+    }
+
+    /* Sağ sütun stili */
+    .right-column {
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .car-details img {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .fixed-payment-info {
+        position: fixed;
+        top: 50px; /* Üstten 50px aşağıda başlayacak şekilde konumlandırma */
+        right: 20px; /* Sağdan 20px içeride olacak şekilde konumlandırma */
+        width: 300px; /* Genişlik ayarlama */
+        padding: 20px;
+        background-color: #f8f9fa;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000; /* Öne çıkması için yüksek z-index değeri */
+    }
+
+    .payment-info {
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        position: fixed;
+        top: 230px;
+        padding: 20px;
+        right: 20px;
+        width: 300px;
+        z-index: 1000;
+    }
+
+</style>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+
+

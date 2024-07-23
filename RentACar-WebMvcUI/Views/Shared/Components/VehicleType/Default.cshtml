@@ -1,0 +1,9 @@
+﻿@model List<VehicleTypeViewModel>
+
+    <div class="dropdown-menu m-0">
+        <a href="~/Home/Cars" class="dropdown-item">Tüm Arabalar</a>
+        @foreach (var item in Model)
+        {
+            <a class="dropdown-item" asp-controller="Home" asp-action="Cars" asp-route-id="@item.Id">@item.Name</a>
+        }
+    </div>

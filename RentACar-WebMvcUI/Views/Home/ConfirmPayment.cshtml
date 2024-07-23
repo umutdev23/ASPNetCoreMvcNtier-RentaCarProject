@@ -1,0 +1,171 @@
+﻿@model CarViewModel
+@{
+    ViewData["Title"] = "ConfirmPayment";
+    var reservation = @ViewBag.Reservation;
+}
+<style>
+    .payment-info {
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        position: fixed;
+        top: 225px;
+        padding: 20px;
+        right: 20px;
+        width: 375px;
+        z-index: 1000;
+    }
+</style>
+<script>
+    window.onscroll = function () {
+        const fixedDiv = document.getElementById('fixedDiv');
+        const stopPoint = 660; // Div'in sabit kalmasını istediğiniz nokta (piksel)
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const leftPoint = 20;
+        const left = 1125;
+        const top = 200;
+
+        if (scrollTop >= stopPoint) {
+            fixedDiv.style.position = 'relative';
+            fixedDiv.style.top = stopPoint + 'px';
+            fixedDiv.style.left = leftPoint + 'px';
+        } else {
+            fixedDiv.style.position = 'fixed';
+            fixedDiv.style.top = top + 'px';
+            fixedDiv.style.left = left + 'px';
+        }
+    };
+</script>
+
+<!-- Car Booking Start -->
+<div class="container-fluid pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="mb-5">
+                    <h2 class="mb-4">Sürücü Bilgileri</h2>
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label class="form-label">&nbsp;Ad</label>
+                            <input type="text" class="form-control p-4" placeholder="Adınız" required="required">
+                        </div>
+                        <div class="col-6 form-group">
+                            <label class="form-label">&nbsp;Soyad</label>
+                            <input type="text" class="form-control p-4" placeholder="Soyadınız" required="required">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label class="form-label">&nbsp;Email</label>
+                            <input type="email" class="form-control p-4" placeholder="örnek-email@gmail.com" required="required">
+                        </div>
+                        <div class="col-6 form-group">
+                            <label class="form-label">&nbsp;Telefon</label>
+                            <input type="tel" class="form-control p-4" placeholder="Telefon numaranız" required="required">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label class="form-label">&nbsp;Doğum Tarihi</label>
+                            <input type="text" class="form-control p-4" placeholder="GG/AA/YYYY" required="required">
+                        </div>
+                        <div class="col-6 form-group">
+                            <label class="form-label">&nbsp;Ehliyet Veriliş Tarihi</label>
+                            <input type="text" class="form-control p-4" placeholder="GG/AA/YYYY" required="required">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="mb-5">
+                        <h2 class="mb-4">Kiralama Detayları</h2>
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <select class="custom-select px-4" style="height: 50px;">
+                                    <option selected>Alış Yeri</option>
+                                   
+                                    <option value="1">Beşiktaş</option>
+                                    <option value="2">Kadıköy</option>
+                                    <option value="3">Bakırköy</option>
+                                </select>
+                            </div>
+                            <div class="col-6 form-group">
+                                <select class="custom-select px-4" style="height: 50px;">
+                                    <option selected>İade Yeri</option>
+                                    <option value="1">Beşiktaş</option>
+                                    <option value="2">Kadıköy</option>
+                                    <option value="3">Bakırköy</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <div class="date" id="date2" data-target-input="nearest">
+                                    <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Alış Tarihi "
+                                           data-target="#date2" data-toggle="datetimepicker" />
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="time" id="time2" data-target-input="nearest">
+                                    <input type="text" class="form-control p-4 datetimepicker-input" placeholder="İade Tarihi"
+                                           data-target="#time2" data-toggle="datetimepicker" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control py-3 px-4" rows="3" placeholder="Özel İstek"></textarea>
+                        </div>
+                    </div>
+                    <h2 class="mb-4">Fatura Bilgileri</h2>
+                    <div class="mb-5">
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <input type="text" class="form-control p-4" placeholder="Adınız" required="required">
+                            </div>
+                            <div class="col-6 form-group">
+                                <input type="text" class="form-control p-4" placeholder="Soyadınız" required="required">
+                            </div>
+                            <div class="row">
+                                <div class="col-6 form-group">
+                                    <input type="text" class="form-control p-4" placeholder="Şehir" required="required">
+                                </div>
+                                <div class="col-6 form-group">
+                                    <input type="text" class="form-control p-4" placeholder="İlçe/Bölge" required="required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control py-3 px-4" rows="3" placeholder="Adres"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="mb-4">Ödeme Bilgileri</h2>
+                    <div class="mb-5">
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <input type="text" class="form-control p-4" placeholder="İban" required="required">
+                            </div>
+                            <div class="col-6 form-group">
+                                <input type="text" class="form-control p-4" placeholder="Ay" required="required">
+                            </div>
+                            <div class="row">
+                                <div class="col-6 form-group">
+                                    <input type="text" class="form-control p-4" placeholder="Yıl" required="required">
+                                </div>
+                                <div class="col-6 form-group">
+                                    <input type="text" class="form-control p-4" placeholder="CVV" required="required">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="payment-info bg-secondary p-5 mb-5" id="fixedDiv">
+                    <h2 class="text-primary mb-4">Ödeme Bilgileri</h2>
+                    <p class="fs-5 text-white"><strong>Günlük Kira Ücreti:</strong> <span>@string.Format("{0:C2}", Model.Price)</span></p>
+                    <p class="fs-5 text-white"><strong>Toplam Kira Süresi:</strong> @(reservation.EndDay.Day - reservation.StartDay.Day)</p>
+                    <p class="fs-5 text-white"><strong>Toplam Ücret:</strong> <span>@reservation.TotalPrice</span></p>
+                    <a class="btn btn-block btn-primary py-3 fs-4">Kirala</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Car Booking End -->

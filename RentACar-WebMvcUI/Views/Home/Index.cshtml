@@ -1,0 +1,540 @@
+﻿@model CarFilterViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<!-- carousel start -->
+<div class="header-carousel">
+    <div id="carouselıd" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#carouselıd" data-bs-slide-to="0" class="active" aria-current="true" aria-label="first slide"></li>
+            <li data-bs-target="#carouselıd" data-bs-slide-to="1" aria-label="second slide"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <img src="~/themes/img/carousel-2.jpg" class="img-fluid w-100" alt="first slide" />
+                <div class="carousel-caption">
+                    <div class="container py-4">
+                        <div class="row g-5">
+                            <div class="col-lg-6 fadeınleft animated" data-animation="fadeınleft" data-delay="1s" style="animation-delay: 1s;">
+                                <div class="bg-secondary rounded p-5">
+                                    <h4 class="text-white mb-4">Araç Kirala</h4>
+                                    <form asp-controller="Home" asp-action="Filter" method="post">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="row g-3">
+                                            <div class="col-12">
+                                                <select asp-for="VehicleTypeId" class="form-select" multiple aria-label="default select example">
+                                                    <option selected disabled hidden>Araç modelini seç</option>
+                                                    @foreach (var item in ViewBag.Models)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                        <span class="fas fa-map-marker-alt"></span> <span class="ms-1">Alış Yeri</span>
+                                                    </div>
+                                                    <select asp-for="PickupLocationId" class="form-select">
+                                                        <option selected disabled hidden>Lokasyon seçin</option>
+                                                        @foreach (var location in ViewBag.Locations)
+                                                        {
+                                                            <option value="@location.Id">@location.Region</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <a href="#" class="text-start text-white d-block mb-2">Farklı bir iade yerine mi ihtiyacınız var?</a>
+                                                <div class="input-group">
+                                                    <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                        <span class="fas fa-map-marker-alt"></span><span class="ms-1">İade Yeri</span>
+                                                    </div>
+                                                    <select asp-for="ReturnLocationId" class="form-select">
+                                                        <option selected disabled hidden>Lokasyon seçin</option>
+                                                        @foreach (var location in ViewBag.Locations)
+                                                        {
+                                                            <option value="@location.Id">@location.Region</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                        <span class="fas fa-calendar-alt"></span><span class="ms-1">Alış Tarihi</span>
+                                                    </div>
+                                                    <input type="date" asp-for="PickupDate" class="form-control">
+                                                    <span asp-validation-for="PickupDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                document.getElementById('PickupDate').value = '';
+                                                var today = new Date().toISOString().split('T')[0];
+                                                document.getElementById('PickupDate').setAttribute('min', today);
+                                            </script>
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                        <span class="fas fa-calendar-alt"></span><span class="ms-1">İade Tarihi</span>
+                                                    </div>
+                                                    <input type="date" asp-for="ReturnDate" class="form-control" />
+                                                    <span asp-validation-for="ReturnDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                document.getElementById('ReturnDate').value = '';
+                                                var today = new Date().toISOString().split('T')[0];
+                                                document.getElementById('ReturnDate').setAttribute('min', today);
+                                            </script>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-light w-100 py-2">Kirala</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-none d-lg-flex fadeınright animated" data-animation="fadeınright" data-delay="1s" style="animation-delay: 1s;">
+                                <div class="text-start">
+                                    <h1 class="display-5 text-white">Kaliteli araç filomuz ile seyahat etmenin tadını çıkartın</h1>
+                                    <p>Keyifli yolculuklar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/themes/img/carousel-1.jpg" class="img-fluid w-100" alt="first slide" />
+                <div class="carousel-caption">
+                    <div class="container py-4">
+                        <div class="row g-5">
+                            <div class="col-lg-6 fadeınleft animated" data-animation="fadeınleft" data-delay="1s" style="animation-delay: 1s;">
+                                <div class="bg-secondary rounded p-5">
+                                    <h4 class="text-white mb-4">Araç Kirala</h4>
+                                    <form asp-controller="Home" asp-action="Filter" method="post">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="row g-3">
+                                            <div class="col-12">
+                                                <select asp-for="VehicleTypeId" class="form-select" aria-label="default select example">
+                                                    <option selected disabled hidden>Araç modelini seç</option>
+                                                    @foreach (var item in ViewBag.Models)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+                                                </select>
+                                                <span asp-validation-for="VehicleTypeId" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                        <span class="fas fa-map-marker-alt"></span> <span class="ms-1">Alış Yeri</span>
+                                                    </div>
+                                                    <select asp-for="PickupLocationId" class="form-select">
+                                                        <option selected disabled hidden>Lokasyon seçin</option>
+                                                        @foreach (var location in ViewBag.Locations)
+                                                        {
+                                                            <option value="@location.Id">@location.Region</option>
+                                                        }
+                                                    </select>
+                                                    <span asp-validation-for="PickupLocationId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <a href="#" class="text-start text-white d-block mb-2">Farklı bir iade yerine mi ihtiyacınız var?</a>
+                                                <div class="input-group">
+                                                    <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                        <span class="fas fa-map-marker-alt"></span><span class="ms-1">İade Yeri</span>
+                                                    </div>
+                                                    <select asp-for="ReturnLocationId" class="form-select">
+                                                        <option selected disabled hidden>Lokasyon seçin</option>
+                                                        @foreach (var location in ViewBag.Locations)
+                                                        {
+                                                            <option value="@location.Id">@location.Region</option>
+                                                        }
+                                                    </select>
+                                                    <span asp-validation-for="ReturnLocationId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                        <span class="fas fa-calendar-alt"></span><span class="ms-1">Alış Tarihi</span>
+                                                    </div>
+                                                    <input type="date" asp-for="PickupDate" class="form-control">
+                                                    <span asp-validation-for="PickupDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                        <span class="fas fa-calendar-alt"></span><span class="ms-1">İade Tarihi</span>
+                                                    </div>
+                                                    <input type="date" asp-for="ReturnDate" class="form-control" />
+                                                    <span asp-validation-for="ReturnDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-light w-100 py-2">Kirala</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-none d-lg-flex fadeınright animated" data-animation="fadeınright" data-delay="1s" style="animation-delay: 1s;">
+                                <div class="text-start">
+                                    <h1 class="display-5 text-white">Kiralamalarınızda %15 indirim kazanın! modelinizi seçin </h1>
+                                    <p>güvenli yolculuklar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- carousel end -->
+<!-- about start -->
+<div class="container-fluid overflow-hidden about py-5">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-xl-6 wow fadeınleft" data-wow-delay="0.2s">
+                <div class="about-item">
+                    <div class="pb-5">
+                        <h1 class="display-5 text-capitalize">cental <span class="text-primary">Hakkında</span></h1>
+                        <p class="mb-0">
+                            Cental 2024 yılında, Tolga Ahmet Çetin, Yunus Emre Karadağ, Alperen Demirbaş ve Hasan Mert Korkmaz tarafından kuruldu. Şirketimiz, İstanbul - Beşiktaş - Kadıköy - Bakırköy bölgesinde araç kiralama sektöründe yüksek kaliteli hizmet sunma amacıyla yola çıktı.
+                        </p>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="about-item-inner border p-4">
+                                <div class="about-icon mb-4">
+                                    <img src="~/themes/img/about-icon-1.png" class="img-fluid w-50 h-50" alt="ıcon">
+                                </div>
+                                <h5 class="mb-3">Vizyonumuz</h5>
+                                <p class="mb-0">Yenilikçi hizmet anlayışımızla, araç kiralama sektöründe lider bir marka olmak ve müşteri memnuniyetinde en yüksek standartları sağlamak ve sektörümüzde fark yaratmak.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="about-item-inner border p-4">
+                                <div class="about-icon mb-4">
+                                    <img src="~/themes/img/about-icon-2.png" class="img-fluid h-50 w-50" alt="ıcon">
+                                </div>
+                                <h5 class="mb-3">Misyonumuz</h5>
+                                <p class="mb-0">Müşterilerimize güvenli, konforlu ve uygun fiyatlı araç kiralama hizmetleri sunarak onların seyahat deneyimlerini en üst seviyeye çıkarmak.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-item my-4">
+                        Kuruluşumuzdan bu yana, Cental olarak birçok başarıya imza attık. İlk olarak 2024 yılında küçük bir işletme olarak başladık ve bugün 3 farklı bölgede, 1 şubemizle ve 5 aracımızla hizmet vermekteyiz.
+                    </p>
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="text-center rounded bg-secondary p-4">
+                                <h1 class="display-6 text-white">1</h1>
+                                <h5 class="text-light mb-0">Yıllık Tecrübe</h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="rounded">
+                                <p class="mb-2"><i class="fa fa-check-circle text-primary me-1"></i> Telefon: +212 553 65 72 </p>
+                                <p class="mb-2"><i class="fa fa-check-circle text-primary me-1"></i> E-posta: cental@gmail.com</p>
+                                <p class="mb-2"><i class="fa fa-check-circle text-primary me-1"></i> Adres: İstanbul - Beşiktaş </p>
+                                <p class="mb-0"><i class="fa fa-check-circle text-primary me-1"></i> Sosyal Medya: Cental</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 d-flex align-items-center">
+                            <a href="#" class="btn btn-primary rounded py-3 px-5">Hemen Kiralamaya Başla</a>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="d-flex align-items-center">
+                                <img src="~/themes/img/attachment-img.jpg" class="img-fluid rounded-circle border border-4 border-secondary" style="width: 100px; height: 100px;" alt="ımage">
+                                <div class="ms-4">
+                                    <h4>Tolga Ahmet Çetin</h4>
+                                    <p class="mb-0">Kurucu Ortaklarından</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 wow fadeınright" data-wow-delay="0.2s">
+                <div class="about-img">
+                    <div class="img-1">
+                        <img src="~/themes/img/about-img.jpg" class="img-fluid rounded h-100 w-100" alt="">
+                    </div>
+                    <div class="img-2">
+                        <img src="~/themes/img/about-img-1.jpg" class="img-fluid rounded w-100" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- about end -->
+<!-- fact counter -->
+<div class="container-fluid counter bg-secondary py-5">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeınup" data-wow-delay="0.1s">
+                <div class="counter-item text-center">
+                    <div class="counter-item-icon mx-auto">
+                        <i class="fas fa-thumbs-up fa-2x"></i>
+                    </div>
+                    <div class="counter-counting my-3">
+                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up">829</span>
+                        <span class="h1 fw-bold text-white">+</span>
+                    </div>
+                    <h4 class="text-white mb-0">Mutlu Ayrılan Müşteriler</h4>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeınup" data-wow-delay="0.3s">
+                <div class="counter-item text-center">
+                    <div class="counter-item-icon mx-auto">
+                        <i class="fas fa-car-alt fa-2x"></i>
+                    </div>
+                    <div class="counter-counting my-3">
+                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up">5</span>
+                        <span class="h1 fw-bold text-white">+</span>
+                    </div>
+                    <h4 class="text-white mb-0">Araç Sayımız</h4>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeınup" data-wow-delay="0.5s">
+                <div class="counter-item text-center">
+                    <div class="counter-item-icon mx-auto">
+                        <i class="fas fa-building fa-2x"></i>
+                    </div>
+                    <div class="counter-counting my-3">
+                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up">3</span>
+                        <span class="h1 fw-bold text-white">+</span>
+                    </div>
+                    <h4 class="text-white mb-0">Bölgelerimiz</h4>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeınup" data-wow-delay="0.7s">
+                <div class="counter-item text-center">
+                    <div class="counter-item-icon mx-auto">
+                        <i class="fas fa-clock fa-2x"></i>
+                    </div>
+                    <div class="counter-counting my-3">
+                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up">589</span>
+                        <span class="h1 fw-bold text-white">+</span>
+                    </div>
+                    <h4 class="text-white mb-0">Toplam Kilometre</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fact counter -->
+<!-- services start -->
+<div class="container-fluid service py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeınup" data-wow-delay="0.1s" style="max-width: 800px;">
+            <h1 class="display-5 text-capitalize mb-3">Cental <span class="text-primary">Servisleri</span></h1>
+            <p class="mb-0">
+                Cental olarak, çeşitli araç kiralama hizmetleri sunuyoruz. Telefonla hızlı ve kolay rezervasyon yapabilirsiniz. Özel tekliflerimizle bütçenize uygun fırsatlar yakalayın. Tek yönlü kiralama seçeneğimizle aracınızı bir bölgeden alıp, başka bir bölgeye bırakabilirsiniz. Hayat sigortası ile ekstra güvenlik sağlayabilirsiniz. Bölgeden bölgeye kiralama ve özgür yolculuklar hizmetlerimizle, esnek ve konforlu seyahat deneyimleri sunuyoruz.
+            </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4 wow fadeınup" data-wow-delay="0.1s">
+                <div class="service-item p-4">
+                    <div class="service-icon mb-4">
+                        <i class="fa fa-phone-alt fa-2x"></i>
+                    </div>
+                    <h5 class="mb-3">Telefonla Rezervasyon</h5>
+                    <p class="mb-0">
+                        Aracınızı hızlıca rezerve etmek için bizi arayın!
+
+                        Telefon: +212 553 65 72<br />
+                        Çalışma Saatleri:<br /> Pazartesi - Cuma:
+                        09:00 - 19:00<br />
+                        Cumartesi:
+                        10:00 - 17:00
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeınup" data-wow-delay="0.3s">
+                <div class="service-item p-4">
+                    <div class="service-icon mb-4">
+                        <i class="fa fa-money-bill-alt fa-2x"></i>
+                    </div>
+                    <h5 class="mb-3">Özel Teklifler</h5>
+                    <p class="mb-0">
+                        Kaçırılmayacak fırsatlar!
+                        Mevcut Kampanyalar:<br />
+                        Haftaiçi İndirimi: Pazartesi-Cuma günleri %20 indirim.<br />
+                        Erken Rezervasyon: Erken rezervasyonlarda ekstra %10 indirim.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeınup" data-wow-delay="0.5s">
+                <div class="service-item p-4">
+                    <div class="service-icon mb-4">
+                        <i class="fa fa-road fa-2x"></i>
+                    </div>
+                    <h5 class="mb-3">Tek Yönlü Kiralama</h5>
+                    <p class="mb-0">Tek yönlü araç kiralama hizmetimizle, aracınızı teslim noktası ile alım noktası farklı olan yerlere kolayca bırakabilirsiniz. Yolculuğunuzun bitiş noktası size bağlı, böylece esnek ve rahat bir seyahat deneyimi sunuyoruz.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeınup" data-wow-delay="0.1s">
+                <div class="service-item p-4">
+                    <div class="service-icon mb-4">
+                        <i class="fa fa-umbrella fa-2x"></i>
+                    </div>
+                    <h5 class="mb-3">Hayat Sigortası</h5>
+                    <p class="mb-0">Hayat sigortamızla kendinizi ve sevdiklerinizi güvende tutun. Sigorta poliçelerimiz, beklenmedik durumlara karşı koruma sağlar ve size huzur verir. Güvenli bir yaşam için hemen hayat sigortası seçeneğimizden yararlanın.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeınup" data-wow-delay="0.3s">
+                <div class="service-item p-4">
+                    <div class="service-icon mb-4">
+                        <i class="fa fa-building fa-2x"></i>
+                    </div>
+                    <h5 class="mb-3">Bölgeden Bölgeye Kiralama</h5>
+                    <p class="mb-0">
+                        Bölgeler arası yolculuklarınızda esneklik ve konfor sağlayan bölgeden bölgeye araç kiralama hizmetimizle yolculuklarınızı zahmetsiz hale getiriyoruz. Aracınızı bir bölgeden alıp, başka bir bölgeye kolayca bırakabilirsiniz.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeınup" data-wow-delay="0.5s">
+                <div class="service-item p-4">
+                    <div class="service-icon mb-4">
+                        <i class="fa fa-car-alt fa-2x"></i>
+                    </div>
+                    <h5 class="mb-3">Özgür Yolculuklar</h5>
+                    <p class="mb-0">Özgür yolculuklar için sunduğumuz araç kiralama hizmetiyle, dilediğiniz yerde durabilir ve istediğiniz rotayı keşfedebilirsiniz. Esnek kiralama seçeneklerimizle, yolculuğunuzun tadını çıkarın ve hareket özgürlüğünüzü keşfedin.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- services end -->
+<!-- car steps start -->
+<div class="container-fluid steps py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeınup" data-wow-delay="0.1s" style="max-width: 800px;">
+            <h1 class="display-5 text-capitalize text-white mb-3">Cental<span class="text-primary"> Kiralama Süreci</span></h1>
+            <p class="mb-0 text-white">
+                Araç kiralama sürecimiz son derece basit ve hızlıdır. Rezervasyonunuzu telefonla veya online olarak yapabilirsiniz. Talebinize göre araç seçiminden sigorta seçeneklerine kadar tüm detayları belirleyin. Rezervasyonunuz onaylandıktan sonra, aracı belirtilen tarih ve saatte teslim alabilir veya belirlediğiniz noktada bırakabilirsiniz. Tüm süreç boyunca müşteri destek ekibimiz size yardımcı olmak için hazırdır.
+            </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 wow fadeınup" data-wow-delay="0.1s">
+                <div class="steps-item p-4 mb-4">
+                    <h4>Bizimle İletişime Geçin</h4>
+                    <p class="mb-0">Rezervasyonunuzu telefonla veya online olarak yapabilirsiniz.</p>
+                    <div class="setps-number">01.</div>
+                </div>
+            </div>
+            <div class="col-lg-4 wow fadeınup" data-wow-delay="0.3s">
+                <div class="steps-item p-4 mb-4">
+                    <h4>Aracınızı Seçin</h4>
+                    <p class="mb-0">Talebinize uygun araç seçimini kolayca yaparak, ihtiyacınıza en uygun seçenekleri değerlendirin.</p>
+                    <div class="setps-number">02.</div>
+                </div>
+            </div>
+            <div class="col-lg-4 wow fadeınup" data-wow-delay="0.5s">
+                <div class="steps-item p-4 mb-4">
+                    <h4>Keyifli Sürüşler</h4>
+                    <p class="mb-0">Sürüşün keyfini çıkarın ve her yolculuğunuzda özgürlüğün tadını çıkarın.</p>
+                    <div class="setps-number">03.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- car steps end -->
+<!-- team start -->
+<div class="container-fluid team pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5 wow fadeınup" data-wow-delay="0.1s" style="max-width: 800px;"><br /><br /><br />
+            <h1 class="display-5 text-capitalize mb-3">Müşteri<span class="text-primary"> Destek</span> Ekibimiz</h1>
+            <p class="mb-0">
+                Müşteri destek ekibimiz, araç kiralama sürecinizde size her adımda yardımcı olmak için burada. Sorularınızı yanıtlamak, sorunlarınıza çözüm bulmak ve ihtiyaçlarınıza hızlıca cevap vermek için deneyimli ve dostane uzmanlarımızla yanınızdayız.
+            </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeınup" data-wow-delay="0.1s">
+                <div class="team-item p-4 pt-0">
+                    <div class="team-img">
+                        <img src="~/themes/img/team-1.jpg" class="img-fluid rounded w-100" alt="ımage">
+                    </div>
+                    <div class="team-content pt-4">
+                        <h4>Emre Kaya</h4>
+                        <p>Müşteri Temsilcisi</p>
+                        <div class="team-icon d-flex justify-content-center">
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeınup" data-wow-delay="0.3s">
+                <div class="team-item p-4 pt-0">
+                    <div class="team-img">
+                        <img src="~/themes/img/team-2.jpg" class="img-fluid rounded w-100" alt="ımage">
+                    </div>
+                    <div class="team-content pt-4">
+                        <h4>Ozan Çelik</h4>
+                        <p>Destek Uzmanı</p>
+                        <div class="team-icon d-flex justify-content-center">
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeınup" data-wow-delay="0.5s">
+                <div class="team-item p-4 pt-0">
+                    <div class="team-img">
+                        <img src="~/themes/img/team-3.jpg" class="img-fluid rounded w-100" alt="ımage">
+                    </div>
+                    <div class="team-content pt-4">
+                        <h4>Ege Arslan</h4>
+                        <p>Rezervasyon Danışmanı</p>
+                        <div class="team-icon d-flex justify-content-center">
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeınup" data-wow-delay="0.7s">
+                <div class="team-item p-4 pt-0">
+                    <div class="team-img">
+                        <img src="~/themes/img/team-4.jpg" class="img-fluid rounded w-100" alt="ımage">
+                    </div>
+                    <div class="team-content pt-4">
+                        <h4>Burak Aydın</h4>
+                        <p>Şikayet Yönetimi Temsilcisi</p>
+                        <div class="team-icon d-flex justify-content-center">
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- team end -->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

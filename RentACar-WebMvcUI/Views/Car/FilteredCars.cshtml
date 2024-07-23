@@ -1,0 +1,28 @@
+﻿@model IEnumerable<RentACar_Entity.ViewModels.CarViewModel>
+@{
+    ViewBag.Title = "Filtered Cars";
+}
+
+<h2>Filtered Cars</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Picture</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.ModelId</td>
+                <td>@car.Price</td>
+                <td><img src="@car.PictureUrl" alt="Car Image" width="100" /></td>
+                <td>@car.LocationId</td>
+            </tr>
+        }
+    </tbody>
+</table>

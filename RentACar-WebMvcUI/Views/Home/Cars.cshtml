@@ -1,0 +1,67 @@
+﻿@model IEnumerable<CarViewModel>
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<!-- Content -->
+<div id="content">
+    <section class="container">
+        <div class="row">
+            <!-- Side Panel -->
+            
+            <!-- Side Panel end -->
+            <!-- Main Content -->
+            <div class="col-lg-9 mt-5">
+                <div class="car-list">
+                    @foreach (var car in Model)
+                    {
+                        <div class="car-item bg-white shadow-md rounded p-3 mb-3">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="#"><img class="img-fluid rounded align-top" src="@car.PictureUrl" alt="car image"></a>
+                                </div>
+                                <div class="col-md-8 mt-3 mt-md-0">
+                                    <div class="row g-0">
+                                        <div class="col-sm-9">
+                                            <h4 class="d-flex align-items-center">
+                                                <a href="#" class="text-dark text-5 me-2">@car.Model.Brand.Name @car.Model.Name</a>
+                                                <span class="alert alert-info rounded-pill px-2 py-1 lh-1 fw-400 text-2 mb-0">@car.Model.VehicleType.Name</span>
+                                            </h4>
+                                            <p class="car-features d-flex align-items-center mb-2 text-4">
+                                                <span data-bs-toggle="tooltip" title="5 Adult Passenger">
+                                                    <i class="fas fa-user"></i> <small class="text-2">5</small>
+                                                </span>
+                                                &nbsp; &nbsp;
+                                                <span data-bs-toggle="tooltip" title="2 Large Bag">
+                                                    <i class="fas fa-suitcase-rolling"></i> <small class="text-2">2</small>
+                                                </span>
+                                                &nbsp; &nbsp;
+                                                <span data-bs-toggle="tooltip" title="1 Small Bag">
+                                                    <i class="fas fa-suitcase"></i> <small class="text-2">1</small>
+                                                </span>
+                                            </p>
+                                            <div class="row text-1 mb-3">
+                                                <div class="col-6">
+                                                    <span class="text-success me-1"><i class="fas fa-check"></i></span> Ücretsiz İptal
+                                                </div>
+                                                <div class="col-6">
+                                                    <span class="text-success me-1"><i class="fas fa-check"></i></span> Fiyat Garantisi
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 text-end d-flex d-sm-block align-items-center">
+                                            <div class="text-dark text-7 fw-500 mb-0 mb-sm-2 me-2 me-sm-0 order-0">@car.Price.ToString("C")</div>
+                                            <a asp-controller="Home" asp-action="CarDetail" asp-route-id="@car.Id" class="btn btn-sm btn-primary order-4 ms-auto">Kirala</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- Main Content end -->
+        </div>
+    </section>
+</div>
+<!-- Content end -->

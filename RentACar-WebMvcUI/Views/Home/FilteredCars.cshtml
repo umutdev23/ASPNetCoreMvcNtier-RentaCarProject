@@ -1,0 +1,146 @@
+﻿@model IEnumerable<CarViewModel>
+@{
+    ViewData["Title"] = "Cars";
+    var vehicleTypes = ViewBag.Models as List<VehicleTypeViewModel> ?? new List<VehicleTypeViewModel>();
+    var selectedVehicleTypes = ViewBag.SelectedVehicleTypes as List<int> ?? new List<int>();
+    var fuelTypes = ViewBag.SelectedFuelTypes as List<ModelViewModel> ?? new List<ModelViewModel>();
+    var locations = ViewBag.Locations;
+    var PickUpLocationId = ViewBag.PickUpLocation;
+    var PickUpDate = ViewBag.PickUpDate;
+    var ReturnDate = ViewBag.ReturnDate;
+}
+
+<!-- Content -->
+<div id="content">
+    <section class="container">
+        <div class="row">
+            <!-- Side Panel -->
+            <aside class="col-lg-3">
+                <div class="bg-white shadow-md rounded p-3">
+                    <h3 class="text-5">Filtrele</h3>
+                    <hr class="mx-n3">
+                    <form asp-action="Filter" method="post">
+                        <div class="accordion accordion-flush style-2 mt-n3" id="toggleAlternate">
+                            <!-- Dönüş Tarihi -->
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="pickupDate">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#togglepickupDate" aria-expanded="true" aria-controls="togglepickupDate">Alış Tarihi</button>
+                                </h2>
+                                <div id="togglepickupDate" class="accordion-collapse collapse show" aria-labelledby="pickupDate">
+                                    <div class="accordion-body">
+                                        <input type="date" name="PickupDate" class="form-control" value="@PickUpDate?.ToString("yyyy-MM-dd")">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="returnDate">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#togglereturnDate" aria-expanded="true" aria-controls="togglereturnDate">Bırakma Tarihi</button>
+                                </h2>
+                                <div id="togglereturnDate" class="accordion-collapse collapse show" aria-labelledby="returnDate">
+                                    <div class="accordion-body">
+                                        <input type="date" name="ReturnDate" class="form-control" value="@ReturnDate?.ToString("yyyy-MM-dd")">
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <!-- Lokasyon -->
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="location">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#togglePickupLocation" aria-expanded="true" aria-controls="togglelocation">Lokasyon</button>
+                                </h2>
+                                <div id="togglePickupLocation" class="accordion-collapse collapse show" aria-labelledby="pickupLocation">
+                                    <div class="accordion-body">
+                                        @foreach (var models in locations)
+                                        {
+
+                                            <div class="form-check">
+                                                <input type="checkbox" id="@models" name="PickupLocationId" class="form-check-input" value="@models.Id">
+                                                <label class="form-check-label d-block" for="@models.Region">@models.Region</label>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="carType">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#togglecarType" aria-expanded="true" aria-controls="togglecarType">Araç Tipi</button>
+                                </h2>
+                                <div id="togglecarType" class="accordion-collapse collapse show" aria-labelledby="carType">
+                                    <div class="accordion-body">
+                                        @foreach (var models in vehicleTypes)
+                                        {
+
+                                            <div class="form-check">
+                                                <input type="checkbox" id="@models" name="VehicleTypeId[]" class="form-check-input" value="@models.Id">
+                                                <label class="form-check-label d-block" for="@models.Name">@models.Name</label>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            
+                        <button type="submit" class="btn btn-primary mt-3">Filtrele</button>
+                    </form>
+                </div>
+            </aside>
+            <!-- Side Panel end -->
+            <!-- Main Content -->
+            <div class="col-lg-9 mt-5">
+                <div class="car-list">
+                    @foreach (var car in Model)
+                    {
+                        <div class="car-item bg-white shadow-md rounded p-3 mb-3">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="#"><img class="img-fluid rounded align-top" src="@car.PictureUrl" alt="car image"></a>
+                                </div>
+                                <div class="col-md-8 mt-3 mt-md-0">
+                                    <div class="row g-0">
+                                        <div class="col-sm-9">
+                                            <h4 class="d-flex align-items-center">
+                                                <a href="#" class="text-dark text-5 me-2">@car.Model.Brand.Name @car.Model.Name</a>
+                                                <span class="alert alert-info rounded-pill px-2 py-1 lh-1 fw-400 text-2 mb-0">@car.Model.VehicleType.Name</span>
+                                            </h4>
+                                            <p class="car-features d-flex align-items-center mb-2 text-4">
+                                                <span data-bs-toggle="tooltip" title="5 Adult Passenger">
+                                                    <i class="fas fa-user"></i> <small class="text-2">5</small>
+                                                </span>
+                                                &nbsp; &nbsp;
+                                                <span data-bs-toggle="tooltip" title="2 Large Bag">
+                                                    <i class="fas fa-suitcase-rolling"></i> <small class="text-2">2</small>
+                                                </span>
+                                                &nbsp; &nbsp;
+                                                <span data-bs-toggle="tooltip" title="1 Small Bag">
+                                                    <i class="fas fa-suitcase"></i> <small class="text-2">1</small>
+                                                </span>
+                                            </p>
+                                            <div class="row text-1 mb-3">
+                                                <div class="col-6">
+                                                    <span class="text-success me-1"><i class="fas fa-check"></i></span> Ücretsiz İptal
+                                                </div>
+                                                <div class="col-6">
+                                                    <span class="text-success me-1"><i class="fas fa-check"></i></span> Fiyat Garantisi
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 text-end d-flex d-sm-block align-items-center">
+                                            <div class="text-dark text-7 fw-500 mb-0 mb-sm-2 me-2 me-sm-0 order-0">@car.Price.ToString("C")</div>
+                                            <a asp-controller="Home" asp-action="CarDetail" asp-route-id="@car.Id" asp-route-startDate="@PickUpDate?.ToString("yyyy-MM-dd")" asp-route-endDate="@ReturnDate?.ToString("yyyy-MM-dd")" class="btn btn-sm btn-primary order-4 ms-auto">Kirala</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- Main Content end -->
+        </div>
+
+<!-- Content end -->

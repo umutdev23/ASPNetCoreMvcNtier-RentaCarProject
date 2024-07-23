@@ -1,0 +1,47 @@
+﻿@model RentACar_Entity.ViewModels.CarFilterViewModel
+@{
+    ViewBag.Title = "Car Filter";
+}
+
+<h2>Car Filter</h2>
+
+<form asp-action="Filter" method="post">
+    <div>
+        <label for="VehicleTypeId">Vehicle Type</label>
+        <select asp-for="VehicleTypeId" class="form-control">
+            <option value="">Select Vehicle Type</option>
+            <option value="1">Sedan</option>
+            <option value="2">Hatchback</option>
+            <option value="3">SUV</option>
+        </select>
+    </div>
+    <div>
+        <label for="PickupLocationId">Pickup Location</label>
+        <select asp-for="PickupLocationId" class="form-control">
+            <option value="">Select Location</option>
+            @foreach (var location in ViewBag.Locations)
+            {
+                <option value="@location.Value">@location.Text</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="ReturnLocationId">Return Location</label>
+        <select asp-for="ReturnLocationId" class="form-control">
+            <option value="">Select Location</option>
+            @foreach (var location in ViewBag.Locations)
+            {
+                <option value="@location.Value">@location.Text</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="PickupDate">Pickup Date</label>
+        <input asp-for="PickupDate" class="form-control" type="date" />
+    </div>
+    <div>
+        <label for="ReturnDate">Return Date</label>
+        <input asp-for="ReturnDate" class="form-control" type="date" />
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>

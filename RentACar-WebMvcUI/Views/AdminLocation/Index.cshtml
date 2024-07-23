@@ -1,0 +1,30 @@
+﻿@model IEnumerable<RentACar_Entity.ViewModels.LocationViewModel>
+
+<h1>Locations</h1>
+
+<p>
+    <a href="@Url.Action("Create", "AdminLocation")">Create New Location</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>City</th>
+            <th>Region</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var location in Model)
+        {
+            <tr>
+                <td>@location.City</td>
+                <td>@location.Region</td>
+                <td>
+                    <a href="@Url.Action("Edit", "AdminLocation", new { id = location.Id })">Edit</a> |
+                    <a href="@Url.Action("Delete", "AdminLocation", new { id = location.Id })">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

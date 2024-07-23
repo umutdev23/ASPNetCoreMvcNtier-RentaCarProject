@@ -1,0 +1,28 @@
+﻿@model RentACar_Entity.ViewModels.CarViewModel
+
+<h1>Edit Car</h1>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="ModelId" class="control-label"></label>
+        <select asp-for="ModelId" class="form-control" asp-items="@(new SelectList(ViewBag.Models, "Id", "Name"))"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PictureUrl" class="control-label"></label>
+        <input asp-for="PictureUrl" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="LocationId" class="control-label"></label>
+        <select asp-for="LocationId" class="form-control" asp-items="@(new SelectList(ViewBag.Locations, "Id", "City"))"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
